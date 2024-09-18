@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './pages/layout/layout.component';
+import { Not404Component } from './pages/not404/not404.component';
+import { RandomComponent } from './login/forgot/random/random.component';
+import { ForgotComponent } from './login/forgot/forgot.component';
 
 
 export const routes: Routes = [
@@ -10,5 +13,11 @@ export const routes: Routes = [
         path: 'pages',
         component: LayoutComponent,
         loadChildren: () => import('./pages/pages.routes').then(x => x.pagesRoutes)
-    }
+    },
+    {
+        path: 'forgot',
+        component: ForgotComponent,
+        children: [{ path: ':random', component: RandomComponent }],
+      },
+    { path: '**', component: Not404Component}
 ];

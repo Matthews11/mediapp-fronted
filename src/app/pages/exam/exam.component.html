@@ -1,0 +1,32 @@
+<app-mat-table
+  [columns]="columnsDefinitions"
+  [data]="exams"  
+  [pageSizeOptions]="[2, 10, 25]"
+>
+  <!-- Definir las acciones aquí usando ng-template -->
+  <ng-template let-row>
+    <button mat-button (click)="edit(row.idExam)">
+      <mat-icon>mode_edit</mat-icon>
+    </button>
+    <button mat-button color="accent" (click)="delete(row.idExam)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </ng-template>
+</app-mat-table>
+
+
+<app-mat-table
+  [columns]="columnsDefinitions"
+  [data]="exams"  
+  [pageSizeOptions]="[5, 15, 30]"
+>
+  <!-- Definir las acciones aquí usando ng-template -->
+  <ng-template let-row>
+    <button mat-button (click)="edit(row.idExam)">
+      <mat-icon>check</mat-icon>
+    </button>
+    <button mat-button color="accent" (click)="delete(row.idExam)">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </ng-template>
+</app-mat-table>

@@ -33,6 +33,8 @@ export class PatientComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  totalElements: number = 0;
+
   constructor(
     private patientService: PatientService,
     private _snackBar: MatSnackBar  
@@ -40,7 +42,8 @@ export class PatientComponent implements OnInit {
   //patientService = inject(PatientService)
  
   ngOnInit(): void {    
-    this.patientService.findAll().subscribe(data => this.createTable(data));
+    //this.patientService.findAll().subscribe(data => this.createTable(data));
+    this.patientService.listPageable(0, 2).subscribe(data => this.createTable(data));
 
     this.patientService.getPatientChange().subscribe(data => this.createTable(data));
     this.patientService.getMessageChange().subscribe(data => {
@@ -48,10 +51,13 @@ export class PatientComponent implements OnInit {
     });
   }
 
-  createTable(data: Patient[]){
-    this.dataSource = new MatTableDataSource(data);
+  createTable(data: any){
+    console.log(data);
+    //this.dataSource = new MatTableDataSource(data);
+    this.totalElements = data.totalElements;
+    this.dataSource = new MatTableDataSource(data.content);
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    //this.dataSource.paginator = this.paginator;
   }
 
   getDisplayedColumns(){
@@ -71,5 +77,8 @@ export class PatientComponent implements OnInit {
     });
   }
 
+  showMore(e : any){
+    this.patientService.listPageable(e.pageIndex, e.pageSize).subscribe(data => this.createTable(data));
+  }
 
 }

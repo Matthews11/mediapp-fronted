@@ -78,7 +78,7 @@ export class PatientEditComponent implements OnInit {
       //UPDATE
       //PRACTICA COMUN PERO NO IDEAL
       this.patientService.update(this.id, patient).subscribe( ()=> {
-        this.patientService.findAll().subscribe(data => {
+        this.patientService.listPageable(0,2).subscribe(data => { //**/
           this.patientService.setPatientChange(data);
           this.patientService.setMessageChange('UPDATED!');
         });
